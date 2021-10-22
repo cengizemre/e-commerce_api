@@ -3,8 +3,11 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const userRoute = require('./routes/user');
+const authRoute = require('./routes/authentication')
 dotenv.config();
+app.use(express.json());
 
+//database connect
 mongoose.connect(process.env.MONGO_URL)
     .then(() => { console.log("db connected") })
     .catch((err) => {
@@ -13,10 +16,10 @@ mongoose.connect(process.env.MONGO_URL)
 
 //Routes
 app.use('/api/', userRoute);
-
+app.use('/api/', authRoute);
 
 app.listen(process.env.PORT, (req, res) => {
-    console.log('5000 listening')
+    console.log(`server listening on ${process.env.PORT}`)
 })
 
 
