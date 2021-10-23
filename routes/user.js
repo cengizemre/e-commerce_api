@@ -1,7 +1,7 @@
 const express = require('express');
-const { verifyToken, verifyTokenAndAutherization, verifyTokenAndAdmin } = require('./verifyToken');
 const User = require('../models/User');
 const router = express.Router();
+const { verifyToken, verifyTokenAndAutherization, verifyTokenAndAdmin } = require('./verifyToken');
 
 router.put('/user/edit/:id', verifyTokenAndAutherization, async (req, res) => {
     if (req.body.password) {
