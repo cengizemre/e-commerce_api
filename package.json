@@ -1,11 +1,10 @@
 {
   "name": "ecommerce_api",
   "version": "1.0.0",
-  "description": "e-commerce app written expressjs and jwt",
+  "description": "e-commerce app written express.js ",
   "main": "app",
   "scripts": {
-    "start": "nodemon app",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app"
   },
   "author": "cengizemre",
   "license": "ISC",
