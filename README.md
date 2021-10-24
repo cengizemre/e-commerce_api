@@ -5,4 +5,3 @@ Used: express.js, jwt, mongoose, CryptoJS.
 
 
 Thanks for this nice [tutorial](https://www.youtube.com/watch?v=rMiRZ1iRC0A)
-https://www.youtube.com/watch?v=rMiRZ1iRC0A&list=LL&index=12
