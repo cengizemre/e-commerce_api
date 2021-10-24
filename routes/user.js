@@ -3,30 +3,6 @@ const User = require('../models/User');
 const router = express.Router();
 const { verifyToken, verifyTokenAndAutherization, verifyTokenAndAdmin } = require('./verifyToken');
 
-router.put('/user/edit/:id', verifyTokenAndAutherization, async (req, res) => {
-    if (req.body.password) {
-        req.body.password = CryptoJS.AES.encrypt(req.body.password, "Secret user-pass").toString();
-    }
-    try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        }, { new: true });
-        res.status(200).json(updatedUser);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-})
-
-//DELETE USER
-router.delete('/user/delete/:id', verifyTokenAndAutherization, async (req, res) => {
-    try {
-        await User.findByIdAndDelete(req.params.id);
-        res.status(200).json("Kullanıcı silindi!");
-    } catch (err) {
-        res.status(500).json(err);
-    }
-})
-
 //GET USER
 router.get('/user/find/:id', verifyTokenAndAdmin, async (req, res) => {
     try {
@@ -73,5 +49,30 @@ router.get('/user/stats', verifyTokenAndAdmin, async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+//UPDATE USER
+router.put('/user/edit/:id', verifyTokenAndAutherization, async (req, res) => {
+    if (req.body.password) {
+        req.body.password = CryptoJS.AES.encrypt(req.body.password, "Secret user-pass").toString();
+    }
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        }, { new: true });
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
+//DELETE USER
+router.delete('/user/delete/:id', verifyTokenAndAutherization, async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).json("Kullanıcı silindi!");
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
 
 module.exports = router;

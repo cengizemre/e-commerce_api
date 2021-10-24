@@ -6,6 +6,7 @@ const userRoute = require('./routes/user');
 const authRoute = require('./routes/authentication');
 const productRoute = require('./routes/product');
 const cartRoute = require('./routes/cart');
+const orderRoute = require('./routes/order');
 app.use(express.json());
 
 //database connect
@@ -20,6 +21,7 @@ app.use('/api/', productRoute);
 app.use('/api/', authRoute);
 app.use('/api/', userRoute);
 app.use('/api/', cartRoute);
+app.use('/api/', orderRoute);
 app.listen(process.env.PORT, (req, res) => {
     console.log(`server listening on ${process.env.PORT}`)
 });
