@@ -4,6 +4,4 @@ The ecommerce api I wrote to improve and learn myself in some advanced mongodb q
 Used: express.js, jwt, mongoose, CryptoJS.
 
 
-Thanks for this nice [tutorial](https://www.youtube.com/watch?v=rMiRZ1iRC0A)
-<br> 
-I watched this lesson for stripe api and mongodb advanced functions.
+Thanks [lamadev](https://www.youtube.com/channel/UCOxWrX5MIdXIeRNaXC3sqIg) for great guide.
