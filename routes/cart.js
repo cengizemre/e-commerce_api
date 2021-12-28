@@ -3,9 +3,8 @@ const router = express.Router();
 const Cart = require('../models/Cart');
 const { verifyToken, verifyTokenAndAdmin, verifyTokenAndAutherization } = require('./verifyToken');
 
-// CREATE
+// CREATE CART
 router.post('/cart/new', verifyToken, async (req, res) => {
-
     const newCart = await new Card(req.body);
     try {
         const savedCart = await newCart.save();
@@ -35,7 +34,6 @@ router.get('/cart/find/:userId', verifyTokenAndAutherization, async (req, res) =
     }
 })
 
-
 // UPDATE
 router.put('/cart/edit/:id', verifyTokenAndAutherization, async (req, res) => {
     try {
@@ -56,12 +54,10 @@ router.put('/cart/edit/:id', verifyTokenAndAutherization, async (req, res) => {
 router.delete('/cart/delete/:id', verifyTokenAndAutherization, async (req, res) => {
     try {
         await Cart.findByIdAndDelete(req.params.id);
-        res.status(200).json("Sepet silindi");
+        res.status(200).json("Basket deleted");
     } catch (err) {
         res.status(500).json(err);
     }
 })
-
-
 
 module.exports = router;

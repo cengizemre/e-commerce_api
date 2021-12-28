@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
-const { verifyToken, verifyTokenAndAutherization, verifyTokenAndAdmin } = require('./verifyToken');
+const { verifyTokenAndAdmin } = require('./verifyToken');
 
 // CREATE PRODUCT
 router.post('/product/new', verifyTokenAndAdmin, async (req, res) => {
@@ -20,7 +20,7 @@ router.get('/products', async (req, res) => {
     const qCategory = req.query.category;
     try {
         let products;
-        
+
         if (qNew) {
             products = await Product.find().sort({ createdAt: -1 }).limit(1);
         } else if (qCategory) {
@@ -48,7 +48,7 @@ router.get('/product/find/:id', async (req, res) => {
     }
 })
 
-// UPDATE
+// UPDATE PRODUCT
 router.put('/product/edit/:id', verifyTokenAndAdmin, async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
@@ -64,11 +64,11 @@ router.put('/product/edit/:id', verifyTokenAndAdmin, async (req, res) => {
     }
 });
 
-// DELETE
+// DELETE PRODUCT
 router.delete('/product/delete/:id', verifyTokenAndAdmin, async (req, res) => {
     try {
         await Product.findByIdAndDelete(req.params.id);
-        res.status(200).json("Ürün Silindi!");
+        res.status(200).json("Product deleted!");
     } catch (err) {
         res.status(500).json(err);
     }

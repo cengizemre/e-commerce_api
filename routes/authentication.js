@@ -4,8 +4,7 @@ const User = require('../models/User');
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
 
-
-//REGISTER
+// REGISTER
 router.post('/register', async (req, res) => {
     const newUser = new User({
         name: req.body.name,
@@ -20,14 +19,14 @@ router.post('/register', async (req, res) => {
     }
 });
 
-//LOGIN
+// LOGIN
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
-        !user && res.status(401).json("Hatalı giriş e-mail veya şifre hatalı!");
+        !user && res.status(401).json("Error : email or password incorrect!");
         const hashPass = CryptoJS.AES.decrypt(user.password, "Secret user-pass");
         const OriginalPassword = hashPass.toString(CryptoJS.enc.Utf8);
-        OriginalPassword !== req.body.password && res.status(401).json("Hatalı giriş e-mail veya şifre hatalı!");
+        OriginalPassword !== req.body.password && res.status(401).json("Error : email or password incorrect!");
 
         const accesToken = jwt.sign({
             id: user._id,
@@ -36,9 +35,7 @@ router.post('/login', async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: "3d" }
         )
-
         const { password, ...others } = user._doc;
-
         res.status(200).json({ ...others, accesToken });
     } catch (err) {
         res.status(500).json(err);
