@@ -3,10 +3,9 @@ const router = express.Router();
 const Product = require('../models/Product');
 const { verifyToken, verifyTokenAndAutherization, verifyTokenAndAdmin } = require('./verifyToken');
 
-// CREATE
+// CREATE PRODUCT
 router.post('/product/new', verifyTokenAndAdmin, async (req, res) => {
     const newProduct = await new Product(req.body);
-
     try {
         const savedProduct = await newProduct.save();
         res.status(201).json(savedProduct);
@@ -21,7 +20,7 @@ router.get('/products', async (req, res) => {
     const qCategory = req.query.category;
     try {
         let products;
-
+        
         if (qNew) {
             products = await Product.find().sort({ createdAt: -1 }).limit(1);
         } else if (qCategory) {
@@ -33,7 +32,6 @@ router.get('/products', async (req, res) => {
         } else {
             products = await Product.find();
         }
-
         res.status(200).json(products);
     } catch (err) {
         res.status(500).json(err);
@@ -52,7 +50,6 @@ router.get('/product/find/:id', async (req, res) => {
 
 // UPDATE
 router.put('/product/edit/:id', verifyTokenAndAdmin, async (req, res) => {
-
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
@@ -65,7 +62,6 @@ router.put('/product/edit/:id', verifyTokenAndAdmin, async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-
 });
 
 // DELETE
